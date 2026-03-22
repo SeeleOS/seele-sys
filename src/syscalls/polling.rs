@@ -29,6 +29,17 @@ pub fn poller_remove(poller: u64, object: u64, event: PollEvent) -> SyscallResul
     syscall!(PollerRemove, poller, object, event as u64)
 }
 
-pub fn poller_wait(poller: u64, events: *mut PollResult, maxevents: usize) -> SyscallResult {
-    syscall!(PollerWait, poller, events as u64, maxevents as u64)
+pub fn poller_wait(
+    poller: u64,
+    events: *mut PollResult,
+    maxevents: usize,
+    timeout: i32,
+) -> SyscallResult {
+    syscall!(
+        PollerWait,
+        poller,
+        events as u64,
+        maxevents as u64,
+        timeout as u64
+    )
 }
