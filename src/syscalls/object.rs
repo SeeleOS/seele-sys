@@ -81,3 +81,11 @@ pub fn control_object(object: u64, command: Command, arg: u64) -> SyscallResult 
 pub fn remove_object(object: u64) -> SyscallResult {
     syscall!(RemoveObject, object)
 }
+
+pub fn clone_object(object: u64) -> SyscallResult {
+    syscall!(CloneObject, object)
+}
+
+pub fn clone_object_to(object: u64, dest: u64) -> SyscallResult {
+    syscall!(CloneObjectTo, object, dest)
+}
