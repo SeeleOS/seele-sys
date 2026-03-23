@@ -8,8 +8,8 @@ pub fn get_current_directory(buf: &mut [u8]) -> SyscallResult {
     syscall!(GetCurrentDirectory, buf.as_ptr() as u64, buf.len() as u64)
 }
 
-pub fn open_file(path: *const i8) -> SyscallResult {
-    syscall!(OpenFile, path as u64)
+pub fn open_file(path: *const i8, create: bool) -> SyscallResult {
+    syscall!(OpenFile, path as u64, create as u64)
 }
 
 pub fn file_info(
