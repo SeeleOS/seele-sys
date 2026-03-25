@@ -10,7 +10,7 @@ pub enum Signal {
     Interrupt,
     Quit,
     Abort,
-    SegmentationFault,
+    InvalidMemoryAccess,
     ChildChanged,
     Stop,
     Continue,
@@ -66,7 +66,7 @@ bitflags! {
         const INTERRUPT = 1 << Signal::Interrupt as u64;
         const QUIT = 1 << Signal::Quit as u64;
         const ABORT = 1 << Signal::Abort as u64;
-        const SEGMENTATION_FAULT = 1 << Signal::SegmentationFault as u64;
+        const INVALID_MEMORY_ACCESS = 1 << Signal::InvalidMemoryAccess as u64;
         const CHILD_CHANGED = 1 << Signal::ChildChanged as u64;
         const STOP = 1 << Signal::Stop as u64;
         const CONTINUE = 1 << Signal::Continue as u64;
@@ -88,7 +88,7 @@ impl From<Signal> for Signals {
             Signal::Interrupt => Self::INTERRUPT,
             Signal::Quit => Self::QUIT,
             Signal::Abort => Self::ABORT,
-            Signal::SegmentationFault => Self::SEGMENTATION_FAULT,
+            Signal::InvalidMemoryAccess => Self::INVALID_MEMORY_ACCESS,
             Signal::ChildChanged => Self::CHILD_CHANGED,
             Signal::Stop => Self::STOP,
             Signal::Continue => Self::CONTINUE,
