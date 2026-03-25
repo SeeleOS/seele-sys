@@ -1,7 +1,8 @@
 use bitflags::bitflags;
 use num_enum::TryFromPrimitive;
+use strum::EnumIter;
 
-#[derive(Clone, Copy, TryFromPrimitive, Debug)]
+#[derive(Clone, Copy, TryFromPrimitive, Debug, EnumIter)]
 #[repr(u64)]
 pub enum Signal {
     Terminate = 0,
