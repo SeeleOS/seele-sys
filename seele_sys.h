@@ -9,6 +9,6 @@
 #include "stdint.h"
 #include "stddef.h"
 
-constexpr static const uintptr_t seele_SIGNAL_AMOUNT = 3;
+constexpr static const uintptr_t seele_SIGNAL_AMOUNT = 16;
 
 #endif  // seele_sys_h

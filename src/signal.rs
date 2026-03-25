@@ -8,9 +8,22 @@ pub enum Signal {
     Terminate = 0,
     Kill,
     Interrupt,
+    Quit,
+    Abort,
+    SegmentationFault,
+    ChildChanged,
+    Stop,
+    Continue,
+    BrokenPipe,
+    Alarm,
+    Hangup,
+    TerminalStop,
+    FloatingPointError,
+    IllegalInstruction,
+    Trap,
 }
 
-pub const SIGNAL_AMOUNT: usize = 3;
+pub const SIGNAL_AMOUNT: usize = 16;
 
 pub type SignalHandlerFn = extern "C" fn(i32);
 
@@ -51,6 +64,19 @@ bitflags! {
         const TERMINATE = 1 << Signal::Terminate as u64;
         const KILL = 1 << Signal::Kill as u64;
         const INTERRUPT = 1 << Signal::Interrupt as u64;
+        const QUIT = 1 << Signal::Quit as u64;
+        const ABORT = 1 << Signal::Abort as u64;
+        const SEGMENTATION_FAULT = 1 << Signal::SegmentationFault as u64;
+        const CHILD_CHANGED = 1 << Signal::ChildChanged as u64;
+        const STOP = 1 << Signal::Stop as u64;
+        const CONTINUE = 1 << Signal::Continue as u64;
+        const BROKEN_PIPE = 1 << Signal::BrokenPipe as u64;
+        const ALARM = 1 << Signal::Alarm as u64;
+        const HANGUP = 1 << Signal::Hangup as u64;
+        const TERMINAL_STOP = 1 << Signal::TerminalStop as u64;
+        const FLOATING_POINT_ERROR = 1 << Signal::FloatingPointError as u64;
+        const ILLEGAL_INSTRUCTION = 1 << Signal::IllegalInstruction as u64;
+        const TRAP = 1 << Signal::Trap as u64;
     }
 }
 
@@ -60,6 +86,19 @@ impl From<Signal> for Signals {
             Signal::Terminate => Self::TERMINATE,
             Signal::Kill => Self::KILL,
             Signal::Interrupt => Self::INTERRUPT,
+            Signal::Quit => Self::QUIT,
+            Signal::Abort => Self::ABORT,
+            Signal::SegmentationFault => Self::SEGMENTATION_FAULT,
+            Signal::ChildChanged => Self::CHILD_CHANGED,
+            Signal::Stop => Self::STOP,
+            Signal::Continue => Self::CONTINUE,
+            Signal::BrokenPipe => Self::BROKEN_PIPE,
+            Signal::Alarm => Self::ALARM,
+            Signal::Hangup => Self::HANGUP,
+            Signal::TerminalStop => Self::TERMINAL_STOP,
+            Signal::FloatingPointError => Self::FLOATING_POINT_ERROR,
+            Signal::IllegalInstruction => Self::ILLEGAL_INSTRUCTION,
+            Signal::Trap => Self::TRAP,
         }
     }
 }
