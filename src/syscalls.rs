@@ -1,6 +1,6 @@
 use core::ffi::c_char;
 
-use crate::{syscall, utils::SyscallResult};
+use crate::{permission::Permissions, syscall, utils::SyscallResult};
 
 pub mod filesystem;
 pub mod futex;
@@ -33,12 +33,12 @@ pub fn set_gs(addr: u64) -> SyscallResult {
     syscall!(SetGs, addr)
 }
 
-fn allocate_mem_pages(pages: u64, flags: u64) -> SyscallResult {
-    syscall!(AllocateMem, pages, flags)
+fn allocate_mem_pages(pages: u64, flags: u64, permissions: Permissions) -> SyscallResult {
+    syscall!(AllocateMem, pages, flags, permissions.bits())
 }
 
-pub fn allocate_mem(len: u64, flags: u64) -> SyscallResult {
-    allocate_mem_pages((len + 4095) / 4096, flags)
+pub fn allocate_mem(len: u64, flags: u64, permissions: Permissions) -> SyscallResult {
+    allocate_mem_pages(len.div_ceil(4096), flags, permissions)
 }
 
 pub fn get_process_id() -> SyscallResult {
