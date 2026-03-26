@@ -1,4 +1,4 @@
-use crate::{errors::SyscallError, syscall, utils::SyscallResult};
+use crate::{errors::SyscallError, permission::Permissions, syscall, utils::SyscallResult};
 
 pub fn change_dir(dir: *const i8, len: u64) -> SyscallResult {
     syscall!(ChangeDirectory, dir as u64, len)
@@ -31,4 +31,8 @@ pub fn file_info(
 
 pub fn directory_contents(object: u64, buf: *mut u8, len: u64) -> SyscallResult {
     syscall!(GetDirectoryContents, object, buf as u64, len)
+}
+
+pub fn map_file(object: u64, len: u64, offset: u64, permissions: Permissions) -> SyscallResult {
+    syscall!(MapFile, object, len, offset, permissions.bits())
 }
