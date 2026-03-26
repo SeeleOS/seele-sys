@@ -37,6 +37,14 @@ fn allocate_mem_pages(pages: u64, flags: u64, permissions: Permissions) -> Sysca
     syscall!(AllocateMem, pages, flags, permissions.bits())
 }
 
+fn update_mem_perms_by_pages(addr: u64, pages: u64, permissions: Permissions) -> SyscallResult {
+    syscall!(UpdateMemPerms, addr, pages, permissions.bits())
+}
+
+pub fn update_mem_perms(addr: u64, len: u64, permissions: Permissions) -> SyscallResult {
+    update_mem_perms_by_pages(addr, len.div_ceil(4096), permissions)
+}
+
 pub fn allocate_mem(len: u64, flags: u64, permissions: Permissions) -> SyscallResult {
     allocate_mem_pages(len.div_ceil(4096), flags, permissions)
 }
