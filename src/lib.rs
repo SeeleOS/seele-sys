@@ -2,6 +2,7 @@
 
 pub mod errors;
 pub mod numbers;
+pub mod permission;
 pub mod signal;
 pub mod syscalls;
 pub mod utils;
