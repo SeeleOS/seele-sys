@@ -37,6 +37,8 @@ pub enum SyscallNumber {
     MapFile,
     RegisterSignalAction,
     SendSignal,
+
+    UpdateMemPerms,
 }
 
 impl SyscallNumber {
