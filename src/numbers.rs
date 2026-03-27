@@ -47,6 +47,8 @@ pub enum SyscallNumber {
     BlockSignals,
     UnblockSignals,
     SetBlockedSignals,
+
+    SigHandlerReturn,
 }
 
 impl SyscallNumber {

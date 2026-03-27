@@ -32,3 +32,7 @@ pub fn unblock_signals(signals: Signals, old_signals: *mut Signals) -> SyscallRe
 pub fn set_blocked_signals(signals: Signals, old_signals: *mut Signals) -> SyscallResult {
     syscall!(SetBlockedSignals, signals.bits(), old_signals as u64)
 }
+
+pub fn sig_handler_return() -> SyscallResult {
+    syscall!(SigHandlerReturn)
+}
