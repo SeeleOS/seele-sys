@@ -43,6 +43,10 @@ pub enum SyscallNumber {
     DeallocateMem,
 
     GetTime,
+
+    BlockSignals,
+    UnblockSignals,
+    SetBlockedSignals,
 }
 
 impl SyscallNumber {
