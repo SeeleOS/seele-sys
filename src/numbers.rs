@@ -41,6 +41,8 @@ pub enum SyscallNumber {
     UpdateMemPerms,
 
     DeallocateMem,
+
+    GetTime,
 }
 
 impl SyscallNumber {

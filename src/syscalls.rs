@@ -74,3 +74,7 @@ pub fn execve(path: &str, args: *const *mut c_char, env: *const *mut c_char) -> 
 pub fn deallocate_mem(addr: u64, len: u64) -> SyscallResult {
     syscall!(DeallocateMem, addr, len)
 }
+
+pub fn get_time() -> SyscallResult {
+    syscall!(GetTime)
+}
