@@ -33,7 +33,7 @@ pub type SignalHandlerFn = extern "C" fn(i32);
 pub struct SignalAction {
     pub handling_type: SignalHandlingType,
     // Signals which the process will ignore when its in the signal handler.
-    pub ignored_signals: Signals,
+    pub sig_handler_ignored_sigs: Signals,
 }
 
 #[derive(Default, Clone, Debug)]
