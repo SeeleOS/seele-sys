@@ -39,6 +39,8 @@ pub enum SyscallNumber {
     SendSignal,
 
     UpdateMemPerms,
+
+    DeallocateMem,
 }
 
 impl SyscallNumber {
