@@ -1,4 +1,5 @@
 use bitflags::bitflags;
+use core::ffi::c_void;
 use num_enum::TryFromPrimitive;
 use strum::EnumIter;
 
@@ -26,6 +27,40 @@ pub enum Signal {
 pub const SIGNAL_AMOUNT: usize = 16;
 
 pub type SignalHandlerFn = extern "C" fn(i32);
+pub type SignalActionFn = extern "C" fn(i32, *const SigInfo, *const UContext);
+
+#[repr(C)]
+#[derive(Clone, Copy, Default)]
+pub struct SigInfo {
+    pub si_signo: i32,
+    pub si_errno: i32,
+    pub si_code: i32,
+    pub si_pid: i32,
+    pub si_uid: u32,
+    pub si_addr: *mut c_void,
+    pub si_status: i32,
+    pub si_value: SigValue,
+}
+
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union SigValue {
+    pub sival_int: i32,
+    pub sival_ptr: *mut c_void,
+}
+
+impl Default for SigValue {
+    fn default() -> Self {
+        Self { sival_int: 0 }
+    }
+}
+
+#[repr(C)]
+#[derive(Clone, Copy, Default)]
+pub struct UContext {
+    pub blocked_signals: u64,
+    pub gregs: [u64; 20],
+}
 
 /// The action that a process will take when it got a signal.
 #[derive(Default, Clone, Debug)]
@@ -34,6 +69,10 @@ pub struct SignalAction {
     pub handling_type: SignalHandlingType,
     // Signals which the process will ignore when its in the signal handler.
     pub sig_handler_ignored_sigs: Signals,
+    pub flags: u64,
+    // User-space restorer the kernel uses as the handler's return address.
+    // The restorer should call sigreturn to return.
+    pub restorer: usize,
 }
 
 #[derive(Default, Clone, Debug)]
@@ -42,19 +81,8 @@ pub enum SignalHandlingType {
     #[default]
     Default,
     Ignore,
-    Function(SignalHandlerFn),
-}
-
-impl From<u64> for SignalHandlingType {
-    fn from(value: u64) -> Self {
-        match value {
-            0 => Self::Default,
-            1 => Self::Ignore,
-            _ => Self::Function(unsafe {
-                core::mem::transmute::<usize, SignalHandlerFn>(value as usize)
-            }),
-        }
-    }
+    Function1(SignalHandlerFn),
+    Function2(SignalActionFn),
 }
 
 bitflags! {
