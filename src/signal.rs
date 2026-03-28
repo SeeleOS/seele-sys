@@ -27,7 +27,7 @@ pub enum Signal {
 pub const SIGNAL_AMOUNT: usize = 16;
 
 pub type SignalHandlerFn = extern "C" fn(i32);
-pub type SignalActionFn = extern "C" fn(i32, *const SigInfo, *const UContext);
+pub type SigHandlerFn2 = extern "C" fn(i32, *const SigInfo, *const UContext);
 
 #[repr(C)]
 #[derive(Clone, Copy, Default)]
@@ -82,7 +82,7 @@ pub enum SignalHandlingType {
     Default,
     Ignore,
     Function1(SignalHandlerFn),
-    Function2(SignalActionFn),
+    Function2(SigHandlerFn2),
 }
 
 bitflags! {
