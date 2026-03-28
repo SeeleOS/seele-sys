@@ -6,25 +6,27 @@ use strum::EnumIter;
 #[derive(Clone, Copy, TryFromPrimitive, Debug, EnumIter)]
 #[repr(u64)]
 pub enum Signal {
-    Terminate = 0,
-    Kill,
-    Interrupt,
-    Quit,
-    Abort,
-    InvalidMemoryAccess,
-    ChildChanged,
-    Stop,
-    Continue,
-    BrokenPipe,
-    Alarm,
-    Hangup,
-    TerminalStop,
-    FloatingPointError,
-    IllegalInstruction,
-    Trap,
+    Hangup = 1,
+    Interrupt = 2,
+    Quit = 3,
+    IllegalInstruction = 4,
+    Trap = 5,
+    Abort = 6,
+    FloatingPointError = 8,
+    Kill = 9,
+    User1 = 10,
+    InvalidMemoryAccess = 11,
+    User2 = 12,
+    BrokenPipe = 13,
+    Alarm = 14,
+    Terminate = 15,
+    ChildChanged = 17,
+    Continue = 18,
+    Stop = 19,
+    TerminalStop = 20,
 }
 
-pub const SIGNAL_AMOUNT: usize = 16;
+pub const SIGNAL_AMOUNT: usize = 18;
 
 pub type SignalHandlerFn = extern "C" fn(i32);
 pub type SigHandlerFn2 = extern "C" fn(i32, *const SigInfo, *const UContext);
@@ -85,48 +87,77 @@ pub enum SignalHandlingType {
     Function2(SigHandlerFn2),
 }
 
+impl Signal {
+    pub const fn index(self) -> usize {
+        match self {
+            Self::Hangup => 0,
+            Self::Interrupt => 1,
+            Self::Quit => 2,
+            Self::IllegalInstruction => 3,
+            Self::Trap => 4,
+            Self::Abort => 5,
+            Self::FloatingPointError => 6,
+            Self::Kill => 7,
+            Self::User1 => 8,
+            Self::InvalidMemoryAccess => 9,
+            Self::User2 => 10,
+            Self::BrokenPipe => 11,
+            Self::Alarm => 12,
+            Self::Terminate => 13,
+            Self::ChildChanged => 14,
+            Self::Continue => 15,
+            Self::Stop => 16,
+            Self::TerminalStop => 17,
+        }
+    }
+}
+
 bitflags! {
     #[derive(Default, Clone, Copy, Debug)]
     #[repr(transparent)]
     pub struct Signals: u64 {
-        const TERMINATE = 1 << Signal::Terminate as u64;
-        const KILL = 1 << Signal::Kill as u64;
+        const HANGUP = 1 << Signal::Hangup as u64;
         const INTERRUPT = 1 << Signal::Interrupt as u64;
         const QUIT = 1 << Signal::Quit as u64;
-        const ABORT = 1 << Signal::Abort as u64;
-        const INVALID_MEMORY_ACCESS = 1 << Signal::InvalidMemoryAccess as u64;
-        const CHILD_CHANGED = 1 << Signal::ChildChanged as u64;
-        const STOP = 1 << Signal::Stop as u64;
-        const CONTINUE = 1 << Signal::Continue as u64;
-        const BROKEN_PIPE = 1 << Signal::BrokenPipe as u64;
-        const ALARM = 1 << Signal::Alarm as u64;
-        const HANGUP = 1 << Signal::Hangup as u64;
-        const TERMINAL_STOP = 1 << Signal::TerminalStop as u64;
-        const FLOATING_POINT_ERROR = 1 << Signal::FloatingPointError as u64;
         const ILLEGAL_INSTRUCTION = 1 << Signal::IllegalInstruction as u64;
         const TRAP = 1 << Signal::Trap as u64;
+        const ABORT = 1 << Signal::Abort as u64;
+        const FLOATING_POINT_ERROR = 1 << Signal::FloatingPointError as u64;
+        const KILL = 1 << Signal::Kill as u64;
+        const USER1 = 1 << Signal::User1 as u64;
+        const INVALID_MEMORY_ACCESS = 1 << Signal::InvalidMemoryAccess as u64;
+        const USER2 = 1 << Signal::User2 as u64;
+        const BROKEN_PIPE = 1 << Signal::BrokenPipe as u64;
+        const ALARM = 1 << Signal::Alarm as u64;
+        const TERMINATE = 1 << Signal::Terminate as u64;
+        const CHILD_CHANGED = 1 << Signal::ChildChanged as u64;
+        const CONTINUE = 1 << Signal::Continue as u64;
+        const STOP = 1 << Signal::Stop as u64;
+        const TERMINAL_STOP = 1 << Signal::TerminalStop as u64;
     }
 }
 
 impl From<Signal> for Signals {
     fn from(value: Signal) -> Self {
         match value {
-            Signal::Terminate => Self::TERMINATE,
-            Signal::Kill => Self::KILL,
+            Signal::Hangup => Self::HANGUP,
             Signal::Interrupt => Self::INTERRUPT,
             Signal::Quit => Self::QUIT,
-            Signal::Abort => Self::ABORT,
-            Signal::InvalidMemoryAccess => Self::INVALID_MEMORY_ACCESS,
-            Signal::ChildChanged => Self::CHILD_CHANGED,
-            Signal::Stop => Self::STOP,
-            Signal::Continue => Self::CONTINUE,
-            Signal::BrokenPipe => Self::BROKEN_PIPE,
-            Signal::Alarm => Self::ALARM,
-            Signal::Hangup => Self::HANGUP,
-            Signal::TerminalStop => Self::TERMINAL_STOP,
-            Signal::FloatingPointError => Self::FLOATING_POINT_ERROR,
             Signal::IllegalInstruction => Self::ILLEGAL_INSTRUCTION,
             Signal::Trap => Self::TRAP,
+            Signal::Abort => Self::ABORT,
+            Signal::FloatingPointError => Self::FLOATING_POINT_ERROR,
+            Signal::Kill => Self::KILL,
+            Signal::User1 => Self::USER1,
+            Signal::InvalidMemoryAccess => Self::INVALID_MEMORY_ACCESS,
+            Signal::User2 => Self::USER2,
+            Signal::BrokenPipe => Self::BROKEN_PIPE,
+            Signal::Alarm => Self::ALARM,
+            Signal::Terminate => Self::TERMINATE,
+            Signal::ChildChanged => Self::CHILD_CHANGED,
+            Signal::Continue => Self::CONTINUE,
+            Signal::Stop => Self::STOP,
+            Signal::TerminalStop => Self::TERMINAL_STOP,
         }
     }
 }
