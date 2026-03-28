@@ -50,7 +50,7 @@ pub enum SyscallNumber {
 
     SigHandlerReturn,
 
-    SystemInfo,
+    GetSystemInfo,
 }
 
 impl SyscallNumber {
