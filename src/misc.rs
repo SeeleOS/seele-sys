@@ -16,6 +16,14 @@ impl SystemInfo {
 
         info
     }
+
+    pub fn name(&self) -> &[u8; 64] {
+        &self.name
+    }
+
+    pub fn version(&self) -> &[u8; 64] {
+        &self.version
+    }
 }
 
 fn write_c_string(dst: &mut [u8], src: &str) {
