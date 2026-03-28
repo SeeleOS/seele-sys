@@ -1,6 +1,6 @@
 use core::ffi::c_char;
 
-use crate::{permission::Permissions, syscall, utils::SyscallResult};
+use crate::{misc::SystemInfo, permission::Permissions, syscall, utils::SyscallResult};
 
 pub mod filesystem;
 pub mod futex;
@@ -77,4 +77,7 @@ pub fn deallocate_mem(addr: u64, len: u64) -> SyscallResult {
 
 pub fn get_time() -> SyscallResult {
     syscall!(GetTime)
+}
+pub fn system_info(info: *mut SystemInfo) -> SyscallResult {
+    syscall!(SystemInfo, info as u64)
 }

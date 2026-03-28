@@ -1,6 +1,7 @@
 #![no_std]
 
 pub mod errors;
+pub mod misc;
 pub mod numbers;
 pub mod permission;
 pub mod signal;
