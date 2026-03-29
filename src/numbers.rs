@@ -42,7 +42,7 @@ pub enum SyscallNumber {
 
     DeallocateMem,
 
-    GetTime,
+    _Unused,
 
     BlockSignals,
     UnblockSignals,
@@ -51,6 +51,9 @@ pub enum SyscallNumber {
     SigHandlerReturn,
 
     GetSystemInfo,
+
+    GetCurrentTime,
+    TimeSinceBoot,
 }
 
 impl SyscallNumber {

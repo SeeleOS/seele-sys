@@ -4,6 +4,7 @@ use crate::{misc::SystemInfo, permission::Permissions, syscall, utils::SyscallRe
 
 pub mod filesystem;
 pub mod futex;
+pub mod misc;
 pub mod object;
 pub mod polling;
 pub mod signal;
@@ -75,9 +76,6 @@ pub fn deallocate_mem(addr: u64, len: u64) -> SyscallResult {
     syscall!(DeallocateMem, addr, len)
 }
 
-pub fn get_time() -> SyscallResult {
-    syscall!(GetTime)
-}
 pub fn get_system_info(info: *mut SystemInfo) -> SyscallResult {
     syscall!(GetSystemInfo, info as u64)
 }
