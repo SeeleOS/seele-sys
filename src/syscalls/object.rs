@@ -1,4 +1,4 @@
-use crate::{SyscallResult, syscall};
+use crate::{SyscallResult, errors::SyscallError, syscall};
 
 #[repr(C)]
 #[derive(Debug, Clone, Copy, Default)]
@@ -57,20 +57,12 @@ pub enum ControlCommand {
 }
 
 impl ControlCommand {
-    pub fn from_raw_u64(value: u64) -> Option<Self> {
+    pub fn from_u64(value: u64) -> SyscallResult<Self> {
         match value {
-            0 => Some(Self::SetFlags),
-            1 => Some(Self::GetFlags),
-            _ => None,
+            0 => Ok(Self::SetFlags),
+            1 => Ok(Self::GetFlags),
+            _ => Err(SyscallError::InvalidArguments),
         }
-    }
-
-    pub fn from_linux(value: i32) -> Option<Self> {
-        Self::from_raw_u64(value as u64)
-    }
-
-    pub fn from_linux_u64(value: u64) -> Option<Self> {
-        Self::from_raw_u64(value)
     }
 }
 
