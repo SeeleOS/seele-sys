@@ -42,6 +42,13 @@ impl ConfigCommand {
     }
 }
 
+bitflags::bitflags! {
+      #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+      pub struct ObjectFlags: u32 {
+          const NONBLOCK = 1 << 0;
+      }
+}
+
 #[repr(u64)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ControlCommand {
