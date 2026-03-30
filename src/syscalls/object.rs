@@ -44,12 +44,12 @@ impl ConfigCommand {
 
 #[repr(u64)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum Command {
+pub enum ControlCommand {
     SetFlags = 0,
     GetFlags = 1,
 }
 
-impl Command {
+impl ControlCommand {
     pub fn from_raw_u64(value: u64) -> Option<Self> {
         match value {
             0 => Some(Self::SetFlags),
@@ -101,7 +101,7 @@ pub fn set_terminal_info(object: u64, info: *const TerminalInfo) -> SyscallResul
     )
 }
 
-pub fn control_object(object: u64, command: Command, arg: u64) -> SyscallResult {
+pub fn control_object(object: u64, command: ControlCommand, arg: u64) -> SyscallResult {
     syscall!(ControlObject, object, command as u64, arg)
 }
 
