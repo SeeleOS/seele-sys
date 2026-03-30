@@ -12,11 +12,34 @@ pub struct TerminalInfo {
     pub echo_delete: bool,
 }
 
+impl TerminalInfo {
+    pub const fn new(rows: u64, cols: u64) -> Self {
+        Self {
+            rows,
+            cols,
+            echo: true,
+            canonical: true,
+            echo_newline: true,
+            echo_delete: true,
+        }
+    }
+}
+
 #[repr(u64)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ConfigCommand {
     GetTerminalInfo = 0,
     SetTerminalInfo = 1,
+}
+
+impl ConfigCommand {
+    pub fn from_raw_u64(value: u64) -> Option<Self> {
+        match value {
+            0 => Some(Self::GetTerminalInfo),
+            1 => Some(Self::SetTerminalInfo),
+            _ => None,
+        }
+    }
 }
 
 #[repr(u64)]
@@ -27,16 +50,20 @@ pub enum Command {
 }
 
 impl Command {
-    pub fn from_linux(value: i32) -> Option<Self> {
-        Self::from_linux_u64(value as u64)
-    }
-
-    pub fn from_linux_u64(value: u64) -> Option<Self> {
+    pub fn from_raw_u64(value: u64) -> Option<Self> {
         match value {
             0 => Some(Self::SetFlags),
             1 => Some(Self::GetFlags),
             _ => None,
         }
+    }
+
+    pub fn from_linux(value: i32) -> Option<Self> {
+        Self::from_raw_u64(value as u64)
+    }
+
+    pub fn from_linux_u64(value: u64) -> Option<Self> {
+        Self::from_raw_u64(value)
     }
 }
 
