@@ -44,7 +44,7 @@ impl ConfigCommand {
 
 bitflags::bitflags! {
       #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-      pub struct ObjectFlags: u32 {
+      pub struct ObjectFlags: u64 {
           const NONBLOCK = 1 << 0;
       }
 }
