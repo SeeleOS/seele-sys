@@ -1,4 +1,4 @@
-use crate::{syscall, utils::SyscallResult};
+use crate::{SyscallResult, syscall};
 
 pub fn get_current_time() -> SyscallResult {
     syscall!(GetCurrentTime)

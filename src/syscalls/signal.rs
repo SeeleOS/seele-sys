@@ -1,7 +1,7 @@
 use crate::{
+    SyscallResult,
     signal::{Signal, SignalAction, Signals},
     syscall,
-    utils::SyscallResult,
 };
 
 pub fn send_signal(process: u64, signal: Signal) -> SyscallResult {

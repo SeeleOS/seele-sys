@@ -1,4 +1,4 @@
-use crate::{errors::SyscallError, permission::Permissions, syscall, utils::SyscallResult};
+use crate::{SyscallResult, permission::Permissions, syscall};
 
 pub fn change_dir(dir: *const i8, len: u64) -> SyscallResult {
     syscall!(ChangeDirectory, dir as u64, len)

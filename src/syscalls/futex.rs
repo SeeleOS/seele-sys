@@ -1,4 +1,4 @@
-use crate::{errors::SyscallError, syscall, utils::SyscallResult};
+use crate::{SyscallResult, syscall};
 
 pub enum WaitResultType {
     Success = 1,

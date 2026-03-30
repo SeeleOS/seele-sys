@@ -1,4 +1,4 @@
-use crate::{syscall, utils::SyscallResult};
+use crate::{SyscallResult, syscall};
 
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default)]

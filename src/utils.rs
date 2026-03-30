@@ -2,7 +2,7 @@ use core::arch;
 
 use crate::{errors::SyscallError, numbers::SyscallNumber};
 
-pub type SyscallResult = Result<usize, SyscallError>;
+pub type SyscallResult<T = usize> = Result<T, SyscallError>;
 
 pub fn process_result(result: SyscallResult) -> usize {
     match result {

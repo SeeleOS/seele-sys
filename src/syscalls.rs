@@ -1,6 +1,6 @@
 use core::ffi::c_char;
 
-use crate::{misc::SystemInfo, permission::Permissions, syscall, utils::SyscallResult};
+use crate::{SyscallResult, misc::SystemInfo, permission::Permissions, syscall};
 
 pub mod filesystem;
 pub mod futex;

@@ -59,6 +59,10 @@ impl SyscallError {
     pub fn as_isize(self) -> isize {
         self as isize
     }
+
+    pub fn other(_message: &str) -> SyscallError {
+        Self::Other
+    }
 }
 
 impl From<isize> for SyscallError {
