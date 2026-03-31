@@ -77,9 +77,9 @@ impl ControlCommand {
     }
 }
 
-pub fn device_from_path(path: &str) -> Option<&str> {
+pub fn device_from_path(path: &str) -> Option<*const u8> {
     match path {
-        "/dev/fb0" => Some("framebuffer"),
+        "/dev/fb0" => Some(c"framebuffer".as_ptr().cast()),
         _ => None,
     }
 }
