@@ -40,6 +40,9 @@ impl ConfigCommand {
         match value {
             0 => Some(Self::GetTerminalInfo),
             1 => Some(Self::SetTerminalInfo),
+            2 => Some(Self::GetFramebufferInfo),
+            3 => Some(Self::FbTakeControl),
+            4 => Some(Self::FbRelease),
             _ => None,
         }
     }
