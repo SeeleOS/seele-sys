@@ -34,7 +34,7 @@ pub enum SyscallNumber {
 
     CloneObject,
     CloneObjectTo,
-    MapFile,
+    _Unused2,
     RegisterSignalAction,
     SendSignal,
 
