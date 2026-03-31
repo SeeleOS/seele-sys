@@ -56,6 +56,8 @@ pub enum SyscallNumber {
     TimeSinceBoot,
 
     OpenDevice,
+
+    MmapObject,
 }
 
 impl SyscallNumber {

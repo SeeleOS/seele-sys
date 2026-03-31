@@ -1,6 +1,6 @@
 use core::ffi::CStr;
 
-use crate::{SyscallResult, errors::SyscallError, syscall};
+use crate::{SyscallResult, errors::SyscallError, permission::Permissions, syscall};
 
 #[repr(C)]
 #[derive(Debug, Clone, Copy, Default)]
@@ -120,4 +120,13 @@ pub fn clone_object_to(object: u64, dest: u64) -> SyscallResult {
 
 pub fn open_device(name: *mut u8) -> SyscallResult {
     syscall!(OpenDevice, name as u64)
+}
+
+pub fn mmap_object(
+    object: u64,
+    pages: u64,
+    offset: u64,
+    permissions: Permissions,
+) -> SyscallResult {
+    syscall!(MmapObject, object, pages, offset, permissions.bits())
 }
