@@ -1,3 +1,5 @@
+use num_enum::TryFromPrimitive;
+
 use crate::{SyscallResult, errors::SyscallError};
 
 #[repr(C)]
@@ -26,26 +28,13 @@ impl TerminalInfo {
 }
 
 #[repr(u64)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive)]
 pub enum ConfigCommand {
     GetTerminalInfo = 0,
     SetTerminalInfo = 1,
     GetFramebufferInfo = 2,
     FbTakeControl = 3,
     FbRelease = 4,
-}
-
-impl ConfigCommand {
-    pub fn from_raw_u64(value: u64) -> Option<Self> {
-        match value {
-            0 => Some(Self::GetTerminalInfo),
-            1 => Some(Self::SetTerminalInfo),
-            2 => Some(Self::GetFramebufferInfo),
-            3 => Some(Self::FbTakeControl),
-            4 => Some(Self::FbRelease),
-            _ => None,
-        }
-    }
 }
 
 bitflags::bitflags! {
