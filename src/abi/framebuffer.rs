@@ -1,9 +1,19 @@
 #[repr(C)]
+#[repr(u32)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub enum FramebufferPixelFormat {
+    #[default]
+    Rgb = 0,
+    Bgr = 1,
+}
+
+#[repr(C)]
+#[derive(Debug, Clone, Copy, Default)]
 pub struct FramebufferInfo {
-    pub width: u32,
-    pub height: u32,
-    pub stride: u32,
-    pub bytes_per_pixel: u32,
-    pub byte_len: u64,
-    pub pixel_format: u32,
+    pub width: usize,
+    pub height: usize,
+    pub stride: usize,
+    pub bytes_per_pixel: usize,
+    pub byte_len: usize,
+    pub pixel_format: FramebufferPixelFormat,
 }
