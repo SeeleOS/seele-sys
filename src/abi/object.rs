@@ -30,6 +30,9 @@ impl TerminalInfo {
 pub enum ConfigCommand {
     GetTerminalInfo = 0,
     SetTerminalInfo = 1,
+    GetFramebufferInfo = 2,
+    FbTakeControl = 3,
+    FbRelease = 4,
 }
 
 impl ConfigCommand {
