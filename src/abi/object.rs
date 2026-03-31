@@ -76,3 +76,10 @@ impl ControlCommand {
         }
     }
 }
+
+pub fn device_from_path(path: &str) -> Option<&str> {
+    match path {
+        "/dev/fb0" => Some("framebuffer"),
+        _ => None,
+    }
+}
