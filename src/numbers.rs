@@ -54,6 +54,8 @@ pub enum SyscallNumber {
 
     GetCurrentTime,
     TimeSinceBoot,
+
+    OpenDevice,
 }
 
 impl SyscallNumber {

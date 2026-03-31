@@ -1,3 +1,5 @@
+use core::ffi::CStr;
+
 use crate::{SyscallResult, errors::SyscallError, syscall};
 
 #[repr(C)]
@@ -114,4 +116,8 @@ pub fn clone_object(object: u64) -> SyscallResult {
 
 pub fn clone_object_to(object: u64, dest: u64) -> SyscallResult {
     syscall!(CloneObjectTo, object, dest)
+}
+
+pub fn open_device(name: *mut u8) -> SyscallResult {
+    syscall!(OpenDevice, name as u64)
 }
