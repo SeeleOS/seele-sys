@@ -58,6 +58,15 @@ pub enum SyscallNumber {
     OpenDevice,
 
     MmapObject,
+    Socket,
+    SocketBind,
+    SocketListen,
+    SocketConnect,
+    SocketAccept,
+    DeleteFile,
+    LinkFile,
+    Sleep,
+    CreateDirectory,
 }
 
 impl SyscallNumber {

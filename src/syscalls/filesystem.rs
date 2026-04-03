@@ -1,4 +1,4 @@
-use crate::{SyscallResult, permission::Permissions, syscall};
+use crate::{SyscallResult, syscall};
 
 pub fn change_dir(dir: *const i8, len: u64) -> SyscallResult {
     syscall!(ChangeDirectory, dir as u64, len)
@@ -31,4 +31,16 @@ pub fn file_info(
 
 pub fn directory_contents(object: u64, buf: *mut u8, len: u64) -> SyscallResult {
     syscall!(GetDirectoryContents, object, buf as u64, len)
+}
+
+pub fn delete_file(path: *const i8) -> SyscallResult {
+    syscall!(DeleteFile, path as u64)
+}
+
+pub fn link_file(old_path: *const i8, new_path: *const i8) -> SyscallResult {
+    syscall!(LinkFile, old_path as u64, new_path as u64)
+}
+
+pub fn create_directory(path: *const i8, from_current_dir: bool) -> SyscallResult {
+    syscall!(CreateDirectory, path as u64, from_current_dir as u64)
 }

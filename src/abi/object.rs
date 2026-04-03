@@ -1,7 +1,5 @@
 use num_enum::TryFromPrimitive;
 
-use crate::{SyscallResult, errors::SyscallError};
-
 #[repr(C)]
 #[derive(Debug, Clone, Copy, Default)]
 pub struct TerminalInfo {
@@ -45,25 +43,25 @@ bitflags::bitflags! {
 }
 
 #[repr(u64)]
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, TryFromPrimitive)]
 pub enum ControlCommand {
     SetFlags = 0,
     GetFlags = 1,
+    CloneWithMin = 2,
+    CloneWithMinCloseOnExecve = 3,
+    SetObjectFlags = 4,
+    GetObjectFlags = 5,
 }
 
 impl ControlCommand {
-    pub fn from_u64(value: u64) -> SyscallResult<Self> {
-        match value {
-            0 => Ok(Self::SetFlags),
-            1 => Ok(Self::GetFlags),
-            _ => Err(SyscallError::InvalidArguments),
-        }
-    }
-
     pub fn from_linux(value: i32) -> Option<Self> {
         match value {
+            1 => Some(Self::GetObjectFlags),
+            2 => Some(Self::SetObjectFlags),
             3 => Some(Self::GetFlags),
             4 => Some(Self::SetFlags),
+            0 => Some(Self::CloneWithMin),
+            1030 => Some(Self::CloneWithMinCloseOnExecve),
             _ => None,
         }
     }

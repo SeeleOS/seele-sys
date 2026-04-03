@@ -43,15 +43,27 @@ pub fn set_terminal_info(object: u64, info: *const TerminalInfo) -> SyscallResul
 }
 
 pub fn get_framebuffer_info(object: u64, info: *mut FramebufferInfo) -> SyscallResult {
-    configurate_object(object, ConfigCommand::GetFramebufferInfo as u64, info.cast())
+    configurate_object(
+        object,
+        ConfigCommand::GetFramebufferInfo as u64,
+        info.cast(),
+    )
 }
 
 pub fn framebuffer_take_control(object: u64) -> SyscallResult {
-    configurate_object(object, ConfigCommand::FbTakeControl as u64, core::ptr::null_mut())
+    configurate_object(
+        object,
+        ConfigCommand::FbTakeControl as u64,
+        core::ptr::null_mut(),
+    )
 }
 
 pub fn framebuffer_release(object: u64) -> SyscallResult {
-    configurate_object(object, ConfigCommand::FbRelease as u64, core::ptr::null_mut())
+    configurate_object(
+        object,
+        ConfigCommand::FbRelease as u64,
+        core::ptr::null_mut(),
+    )
 }
 
 pub fn control_object(object: u64, command: ControlCommand, arg: u64) -> SyscallResult {

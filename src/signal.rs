@@ -12,6 +12,7 @@ pub enum Signal {
     IllegalInstruction = 4,
     Trap = 5,
     Abort = 6,
+    BusError = 7,
     FloatingPointError = 8,
     Kill = 9,
     User1 = 10,
@@ -24,9 +25,12 @@ pub enum Signal {
     Continue = 18,
     Stop = 19,
     TerminalStop = 20,
+    CpuTimeLimitExceeded = 24,
+    FileSizeLimitExceeded = 25,
+    BadSystemCall = 31,
 }
 
-pub const SIGNAL_AMOUNT: usize = 18;
+pub const SIGNAL_AMOUNT: usize = 22;
 
 pub type SignalHandlerFn = extern "C" fn(i32);
 pub type SigHandlerFn2 = extern "C" fn(i32, *const SigInfo, *const UContext);
@@ -96,18 +100,22 @@ impl Signal {
             Self::IllegalInstruction => 3,
             Self::Trap => 4,
             Self::Abort => 5,
-            Self::FloatingPointError => 6,
-            Self::Kill => 7,
-            Self::User1 => 8,
-            Self::InvalidMemoryAccess => 9,
-            Self::User2 => 10,
-            Self::BrokenPipe => 11,
-            Self::Alarm => 12,
-            Self::Terminate => 13,
-            Self::ChildChanged => 14,
-            Self::Continue => 15,
-            Self::Stop => 16,
-            Self::TerminalStop => 17,
+            Self::BusError => 6,
+            Self::FloatingPointError => 7,
+            Self::Kill => 8,
+            Self::User1 => 9,
+            Self::InvalidMemoryAccess => 10,
+            Self::User2 => 11,
+            Self::BrokenPipe => 12,
+            Self::Alarm => 13,
+            Self::Terminate => 14,
+            Self::ChildChanged => 15,
+            Self::Continue => 16,
+            Self::Stop => 17,
+            Self::TerminalStop => 18,
+            Self::CpuTimeLimitExceeded => 19,
+            Self::FileSizeLimitExceeded => 20,
+            Self::BadSystemCall => 21,
         }
     }
 }
@@ -122,6 +130,7 @@ bitflags! {
         const ILLEGAL_INSTRUCTION = 1 << Signal::IllegalInstruction as u64;
         const TRAP = 1 << Signal::Trap as u64;
         const ABORT = 1 << Signal::Abort as u64;
+        const BUS_ERROR = 1 << Signal::BusError as u64;
         const FLOATING_POINT_ERROR = 1 << Signal::FloatingPointError as u64;
         const KILL = 1 << Signal::Kill as u64;
         const USER1 = 1 << Signal::User1 as u64;
@@ -134,6 +143,9 @@ bitflags! {
         const CONTINUE = 1 << Signal::Continue as u64;
         const STOP = 1 << Signal::Stop as u64;
         const TERMINAL_STOP = 1 << Signal::TerminalStop as u64;
+        const CPU_TIME_LIMIT_EXCEEDED = 1 << Signal::CpuTimeLimitExceeded as u64;
+        const FILE_SIZE_LIMIT_EXCEEDED = 1 << Signal::FileSizeLimitExceeded as u64;
+        const BAD_SYSTEM_CALL = 1 << Signal::BadSystemCall as u64;
     }
 }
 
@@ -146,6 +158,7 @@ impl From<Signal> for Signals {
             Signal::IllegalInstruction => Self::ILLEGAL_INSTRUCTION,
             Signal::Trap => Self::TRAP,
             Signal::Abort => Self::ABORT,
+            Signal::BusError => Self::BUS_ERROR,
             Signal::FloatingPointError => Self::FLOATING_POINT_ERROR,
             Signal::Kill => Self::KILL,
             Signal::User1 => Self::USER1,
@@ -158,6 +171,9 @@ impl From<Signal> for Signals {
             Signal::Continue => Self::CONTINUE,
             Signal::Stop => Self::STOP,
             Signal::TerminalStop => Self::TERMINAL_STOP,
+            Signal::CpuTimeLimitExceeded => Self::CPU_TIME_LIMIT_EXCEEDED,
+            Signal::FileSizeLimitExceeded => Self::FILE_SIZE_LIMIT_EXCEEDED,
+            Signal::BadSystemCall => Self::BAD_SYSTEM_CALL,
         }
     }
 }

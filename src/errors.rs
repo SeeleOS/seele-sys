@@ -42,8 +42,20 @@ pub enum SyscallError {
     FileTooLarge = -27,
     /// 磁盘空间不足 (ENOSPC)
     NoSpaceLeft = -28,
+    /// 管道破裂 (EPIPE)
+    BrokenPipe = -32,
     /// 只读文件系统 (EROFS)
     ReadOnlyFileSystem = -30,
+    /// 协议不支持 (EPROTONOSUPPORT)
+    ProtocolNotSupported = -93,
+    /// 地址族不支持 (EAFNOSUPPORT)
+    AddressFamilyNotSupported = -97,
+    /// 地址已在使用中 (EADDRINUSE)
+    AddressInUse = -98,
+    /// 套接字已连接 (EISCONN)
+    IsConnected = -106,
+    /// 连接被拒绝 (ECONNREFUSED)
+    ConnectionRefused = -111,
     /// 系统调用未实现 (ENOSYS)
     NoSyscall = -38,
     /// 目录不为空 (ENOTEMPTY)
