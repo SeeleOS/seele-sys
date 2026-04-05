@@ -69,6 +69,8 @@ pub enum SyscallNumber {
     CreateDirectory,
 
     SeekObject,
+
+    ThreadClone,
 }
 
 impl SyscallNumber {

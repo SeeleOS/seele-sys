@@ -11,3 +11,7 @@ pub fn time_since_boot() -> SyscallResult {
 pub fn sleep(nanoseconds: u64) -> SyscallResult {
     syscall!(Sleep, nanoseconds)
 }
+
+pub fn thread_clone(stack_pointer: u64) -> SyscallResult {
+    syscall!(ThreadClone, stack_pointer)
+}
