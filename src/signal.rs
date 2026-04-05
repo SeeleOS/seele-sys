@@ -118,34 +118,36 @@ impl Signal {
             Self::BadSystemCall => 21,
         }
     }
+
+    pub const fn mask(self) -> u64 { 1 << (self as u64 - 1) }
 }
 
 bitflags! {
     #[derive(Default, Clone, Copy, Debug)]
     #[repr(transparent)]
     pub struct Signals: u64 {
-        const HANGUP = 1 << Signal::Hangup as u64;
-        const INTERRUPT = 1 << Signal::Interrupt as u64;
-        const QUIT = 1 << Signal::Quit as u64;
-        const ILLEGAL_INSTRUCTION = 1 << Signal::IllegalInstruction as u64;
-        const TRAP = 1 << Signal::Trap as u64;
-        const ABORT = 1 << Signal::Abort as u64;
-        const BUS_ERROR = 1 << Signal::BusError as u64;
-        const FLOATING_POINT_ERROR = 1 << Signal::FloatingPointError as u64;
-        const KILL = 1 << Signal::Kill as u64;
-        const USER1 = 1 << Signal::User1 as u64;
-        const INVALID_MEMORY_ACCESS = 1 << Signal::InvalidMemoryAccess as u64;
-        const USER2 = 1 << Signal::User2 as u64;
-        const BROKEN_PIPE = 1 << Signal::BrokenPipe as u64;
-        const ALARM = 1 << Signal::Alarm as u64;
-        const TERMINATE = 1 << Signal::Terminate as u64;
-        const CHILD_CHANGED = 1 << Signal::ChildChanged as u64;
-        const CONTINUE = 1 << Signal::Continue as u64;
-        const STOP = 1 << Signal::Stop as u64;
-        const TERMINAL_STOP = 1 << Signal::TerminalStop as u64;
-        const CPU_TIME_LIMIT_EXCEEDED = 1 << Signal::CpuTimeLimitExceeded as u64;
-        const FILE_SIZE_LIMIT_EXCEEDED = 1 << Signal::FileSizeLimitExceeded as u64;
-        const BAD_SYSTEM_CALL = 1 << Signal::BadSystemCall as u64;
+        const HANGUP = Signal::Hangup.mask();
+        const INTERRUPT = Signal::Interrupt.mask();
+        const QUIT = Signal::Quit.mask();
+        const ILLEGAL_INSTRUCTION = Signal::IllegalInstruction.mask();
+        const TRAP = Signal::Trap.mask();
+        const ABORT = Signal::Abort.mask();
+        const BUS_ERROR = Signal::BusError.mask();
+        const FLOATING_POINT_ERROR = Signal::FloatingPointError.mask();
+        const KILL = Signal::Kill.mask();
+        const USER1 = Signal::User1.mask();
+        const INVALID_MEMORY_ACCESS = Signal::InvalidMemoryAccess.mask();
+        const USER2 = Signal::User2.mask();
+        const BROKEN_PIPE = Signal::BrokenPipe.mask();
+        const ALARM = Signal::Alarm.mask();
+        const TERMINATE = Signal::Terminate.mask();
+        const CHILD_CHANGED = Signal::ChildChanged.mask();
+        const CONTINUE = Signal::Continue.mask();
+        const STOP = Signal::Stop.mask();
+        const TERMINAL_STOP = Signal::TerminalStop.mask();
+        const CPU_TIME_LIMIT_EXCEEDED = Signal::CpuTimeLimitExceeded.mask();
+        const FILE_SIZE_LIMIT_EXCEEDED = Signal::FileSizeLimitExceeded.mask();
+        const BAD_SYSTEM_CALL = Signal::BadSystemCall.mask();
     }
 }
 
