@@ -74,3 +74,11 @@ pub fn device_from_path(path: &str) -> Option<*const u8> {
         _ => None,
     }
 }
+
+#[repr(u64)]
+#[derive(Clone, Copy, TryFromPrimitive, Debug)]
+pub enum SeekType {
+    Start = 0,
+    Current = 1,
+    End = 2,
+}

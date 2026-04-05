@@ -67,6 +67,8 @@ pub enum SyscallNumber {
     LinkFile,
     Sleep,
     CreateDirectory,
+
+    SeekObject,
 }
 
 impl SyscallNumber {

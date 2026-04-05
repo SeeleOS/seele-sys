@@ -2,7 +2,7 @@ use crate::{
     SyscallResult,
     abi::{
         framebuffer::FramebufferInfo,
-        object::{ConfigCommand, ControlCommand, TerminalInfo},
+        object::{ConfigCommand, ControlCommand, SeekType, TerminalInfo},
     },
     permission::Permissions,
     syscall,
@@ -93,4 +93,8 @@ pub fn mmap_object(
     permissions: Permissions,
 ) -> SyscallResult {
     syscall!(MmapObject, object, pages, offset, permissions.bits())
+}
+
+pub fn seek_object(object: u64, offset: u64, seek_type: SeekType) -> SyscallResult {
+    syscall!(SeekObject, object, offset, seek_type as u64)
 }
