@@ -95,6 +95,6 @@ pub fn mmap_object(
     syscall!(MmapObject, object, pages, offset, permissions.bits())
 }
 
-pub fn seek_object(object: u64, offset: u64, seek_type: SeekType) -> SyscallResult {
-    syscall!(SeekObject, object, offset, seek_type as u64)
+pub fn seek_object(object: u64, offset: i64, seek_type: SeekType) -> SyscallResult {
+    syscall!(SeekObject, object, offset as u64, seek_type as u64)
 }
