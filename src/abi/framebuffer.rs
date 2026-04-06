@@ -9,6 +9,7 @@ pub enum FramebufferPixelFormat {
 #[repr(C)]
 #[derive(Debug, Clone, Copy, Default)]
 pub struct FramebufferInfo {
+    pub phys_addr: usize,
     pub width: usize,
     pub height: usize,
     pub stride: usize,
