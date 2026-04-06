@@ -19,3 +19,20 @@ pub fn connect(socket: u64, path: *const i8) -> SyscallResult {
 pub fn accept(socket: u64) -> SyscallResult {
     syscall!(SocketAccept, socket)
 }
+
+pub fn getsockopt(
+    socket: u64,
+    level: u64,
+    option_name: u64,
+    option_value: *mut u8,
+    option_len: *mut u32,
+) -> SyscallResult {
+    syscall!(
+        SocketGetSockOpt,
+        socket,
+        level,
+        option_name,
+        option_value as u64,
+        option_len as u64
+    )
+}

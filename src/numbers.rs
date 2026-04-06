@@ -63,6 +63,7 @@ pub enum SyscallNumber {
     SocketListen,
     SocketConnect,
     SocketAccept,
+    SocketGetSockOpt,
     DeleteFile,
     LinkFile,
     Sleep,
