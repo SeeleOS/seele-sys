@@ -48,7 +48,7 @@ pub fn create_directory(path: *const i8, from_current_dir: bool) -> SyscallResul
 pub fn read_link(
     path: *const i8,
     from_current_dir: bool,
-    out_buf: *const i8,
+    out_buf: *const u8,
     out_len: u64,
 ) -> SyscallResult {
     syscall!(
