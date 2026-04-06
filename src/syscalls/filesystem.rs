@@ -44,3 +44,7 @@ pub fn link_file(old_path: *const i8, new_path: *const i8) -> SyscallResult {
 pub fn create_directory(path: *const i8, from_current_dir: bool) -> SyscallResult {
     syscall!(CreateDirectory, path as u64, from_current_dir as u64)
 }
+
+pub fn read_link(path: *const i8, from_current_dir: bool) -> SyscallResult {
+    syscall!(ReadLink, path as u64, from_current_dir as u64)
+}

@@ -72,6 +72,8 @@ pub enum SyscallNumber {
     SeekObject,
 
     ThreadClone,
+
+    ReadLink,
 }
 
 impl SyscallNumber {
