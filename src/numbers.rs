@@ -76,6 +76,9 @@ pub enum SyscallNumber {
     ReadLink,
 
     SendSignalGroup,
+
+    SetProcessGroupID,
+    GetProcessGroupID,
 }
 
 impl SyscallNumber {

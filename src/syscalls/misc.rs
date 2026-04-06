@@ -15,3 +15,11 @@ pub fn sleep(nanoseconds: u64) -> SyscallResult {
 pub fn thread_clone(stack_pointer: u64) -> SyscallResult {
     syscall!(ThreadClone, stack_pointer)
 }
+
+pub fn set_process_group_id(process: u64, group_id: u64) -> SyscallResult {
+    syscall!(SetProcessGroupID, process, group_id)
+}
+
+pub fn get_process_group_id(process: u64) -> SyscallResult {
+    syscall!(GetProcessGroupID, process)
+}
