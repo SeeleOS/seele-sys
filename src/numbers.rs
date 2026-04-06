@@ -74,6 +74,8 @@ pub enum SyscallNumber {
     ThreadClone,
 
     ReadLink,
+
+    SendSignalGroup,
 }
 
 impl SyscallNumber {

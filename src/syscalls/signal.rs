@@ -8,6 +8,10 @@ pub fn send_signal(process: u64, signal: Signal) -> SyscallResult {
     syscall!(SendSignal, process, signal as u64)
 }
 
+pub fn send_signal_group(process_group: u64, signal: Signal) -> SyscallResult {
+    syscall!(SendSignalGroup, process_group, signal as u64)
+}
+
 pub fn register_signal_action(
     signal: Signal,
     new_action: *const SignalAction,
