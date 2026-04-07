@@ -36,7 +36,7 @@ pub enum ConfigCommand {
 }
 
 bitflags::bitflags! {
-    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    #[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
     pub struct ObjectFlags: u64 {
         const NONBLOCK = 1 << 0;
     }
@@ -71,6 +71,8 @@ pub fn device_from_path(path: &str) -> Option<*const u8> {
     match path {
         "/dev/fb0" => Some(c"framebuffer".as_ptr().cast()),
         "/dev/null" => Some(c"devnull".as_ptr().cast()),
+        "/dev/psaux" => Some(c"ps2mouse".as_ptr().cast()),
+        "/dev/mouse" => Some(c"ps2mouse".as_ptr().cast()),
         _ => None,
     }
 }
