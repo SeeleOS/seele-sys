@@ -36,3 +36,29 @@ pub fn getsockopt(
         option_len as u64
     )
 }
+
+pub fn getsockname(socket: u64, address: *mut u8, address_len: *mut u32) -> SyscallResult {
+    syscall!(
+        SocketGetSockName,
+        socket,
+        address as u64,
+        address_len as u64
+    )
+}
+
+pub fn getpeername(socket: u64, address: *mut u8, address_len: *mut u32) -> SyscallResult {
+    syscall!(
+        SocketGetPeerName,
+        socket,
+        address as u64,
+        address_len as u64
+    )
+}
+
+pub fn recvmsg(socket: u64, msg: *mut u8, flags: u64) -> SyscallResult {
+    syscall!(SocketRecvMsg, socket, msg as u64, flags)
+}
+
+pub fn shutdown(socket: u64, how: u64) -> SyscallResult {
+    syscall!(SocketShutdown, socket, how)
+}

@@ -79,6 +79,10 @@ pub enum SyscallNumber {
 
     SetProcessGroupID,
     GetProcessGroupID,
+    SocketGetSockName,
+    SocketGetPeerName,
+    SocketRecvMsg,
+    SocketShutdown,
 }
 
 impl SyscallNumber {
