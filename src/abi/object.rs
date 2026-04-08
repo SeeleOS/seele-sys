@@ -33,6 +33,9 @@ pub enum ConfigCommand {
     GetFramebufferInfo = 2,
     FbTakeControl = 3,
     FbRelease = 4,
+    // Sets / Gets the active process group of a terminal
+    TermSetActiveGroup = 5,
+    TermGetActiveGroup = 6,
 }
 
 bitflags::bitflags! {
