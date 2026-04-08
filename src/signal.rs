@@ -25,12 +25,14 @@ pub enum Signal {
     Continue = 18,
     Stop = 19,
     TerminalStop = 20,
+    TerminalInput = 21,
+    TerminalOutput = 22,
     CpuTimeLimitExceeded = 24,
     FileSizeLimitExceeded = 25,
     BadSystemCall = 31,
 }
 
-pub const SIGNAL_AMOUNT: usize = 22;
+pub const SIGNAL_AMOUNT: usize = 24;
 
 pub type SignalHandlerFn = extern "C" fn(i32);
 pub type SigHandlerFn2 = extern "C" fn(i32, *const SigInfo, *const UContext);
@@ -113,9 +115,11 @@ impl Signal {
             Self::Continue => 16,
             Self::Stop => 17,
             Self::TerminalStop => 18,
-            Self::CpuTimeLimitExceeded => 19,
-            Self::FileSizeLimitExceeded => 20,
-            Self::BadSystemCall => 21,
+            Self::TerminalInput => 19,
+            Self::TerminalOutput => 20,
+            Self::CpuTimeLimitExceeded => 21,
+            Self::FileSizeLimitExceeded => 22,
+            Self::BadSystemCall => 23,
         }
     }
 
@@ -145,6 +149,8 @@ bitflags! {
         const CONTINUE = Signal::Continue.mask();
         const STOP = Signal::Stop.mask();
         const TERMINAL_STOP = Signal::TerminalStop.mask();
+        const TERMINAL_INPUT = Signal::TerminalInput.mask();
+        const TERMINAL_OUTPUT = Signal::TerminalOutput.mask();
         const CPU_TIME_LIMIT_EXCEEDED = Signal::CpuTimeLimitExceeded.mask();
         const FILE_SIZE_LIMIT_EXCEEDED = Signal::FileSizeLimitExceeded.mask();
         const BAD_SYSTEM_CALL = Signal::BadSystemCall.mask();
@@ -173,6 +179,8 @@ impl From<Signal> for Signals {
             Signal::Continue => Self::CONTINUE,
             Signal::Stop => Self::STOP,
             Signal::TerminalStop => Self::TERMINAL_STOP,
+            Signal::TerminalInput => Self::TERMINAL_INPUT,
+            Signal::TerminalOutput => Self::TERMINAL_OUTPUT,
             Signal::CpuTimeLimitExceeded => Self::CPU_TIME_LIMIT_EXCEEDED,
             Signal::FileSizeLimitExceeded => Self::FILE_SIZE_LIMIT_EXCEEDED,
             Signal::BadSystemCall => Self::BAD_SYSTEM_CALL,
