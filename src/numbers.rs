@@ -83,6 +83,8 @@ pub enum SyscallNumber {
     SocketGetPeerName,
     SocketRecvMsg,
     SocketShutdown,
+
+    SendSignalToAll,
 }
 
 impl SyscallNumber {

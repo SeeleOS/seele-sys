@@ -40,3 +40,7 @@ pub fn set_blocked_signals(signals: Signals, old_signals: *mut Signals) -> Sysca
 pub fn sig_handler_return() -> SyscallResult {
     syscall!(SigHandlerReturn)
 }
+
+pub fn send_signal_to_all(signal: Signal) -> SyscallResult {
+    syscall!(SendSignalToAll, signal as u64)
+}
