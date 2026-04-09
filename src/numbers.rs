@@ -85,6 +85,11 @@ pub enum SyscallNumber {
     SocketShutdown,
 
     SendSignalToAll,
+
+    CreateTimer,
+    DeleteTimer,
+    SetTimerState,
+    GetTimerState,
 }
 
 impl SyscallNumber {
