@@ -20,3 +20,7 @@ pub fn set_timer_state(id: u64, timer_state: *const TimerStateStruct) -> Syscall
 pub fn get_timer_state(id: u64, timer_state: *mut TimerStateStruct) -> SyscallResult {
     syscall!(GetTimerState, id, timer_state as u64)
 }
+
+pub fn get_timer_overrun(id: u64) -> SyscallResult {
+    syscall!(GetTimerOverrun, id)
+}

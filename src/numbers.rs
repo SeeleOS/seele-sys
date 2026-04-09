@@ -90,6 +90,7 @@ pub enum SyscallNumber {
     DeleteTimer,
     SetTimerState,
     GetTimerState,
+    GetTimerOverrun,
 }
 
 impl SyscallNumber {

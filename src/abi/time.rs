@@ -43,7 +43,7 @@ pub enum TimerStateType {
     Periodic,
 }
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Default, Clone, Copy, Debug)]
 #[repr(C)]
 pub struct TimerStateStruct {
     pub state_type: TimerStateType,
