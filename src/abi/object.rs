@@ -8,6 +8,8 @@ pub struct TerminalInfo {
     pub echo: bool,
     /// Whether the kernel tty applies canonical line discipline semantics.
     pub canonical: bool,
+    /// Whether to send signals when the terminal receives special characters like ctrl c
+    pub send_sig_on_special_chars: bool,
     pub echo_newline: bool,
     pub echo_delete: bool,
 }
@@ -19,6 +21,7 @@ impl TerminalInfo {
             cols,
             echo: true,
             canonical: true,
+            send_sig_on_special_chars: true,
             echo_newline: true,
             echo_delete: true,
         }
