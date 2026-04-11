@@ -23,3 +23,7 @@ pub fn set_process_group_id(process: u64, group_id: u64) -> SyscallResult {
 pub fn get_process_group_id(process: u64) -> SyscallResult {
     syscall!(GetProcessGroupID, process)
 }
+
+pub fn create_pty(master_ptr: *mut i32, slave_ptr: *mut i32) -> SyscallResult {
+    syscall!(CreatePty, master_ptr as u64, slave_ptr as u64)
+}

@@ -91,6 +91,8 @@ pub enum SyscallNumber {
     SetTimerState,
     GetTimerState,
     GetTimerOverrun,
+
+    CreatePty,
 }
 
 impl SyscallNumber {
