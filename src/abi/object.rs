@@ -1,7 +1,7 @@
 use num_enum::TryFromPrimitive;
 
 #[repr(C)]
-#[derive(Debug, Clone, Copy, Default)]
+#[derive(Debug, Clone, Copy)]
 pub struct TerminalInfo {
     pub rows: u64,
     pub cols: u64,
@@ -25,6 +25,12 @@ impl TerminalInfo {
             echo_newline: true,
             echo_delete: true,
         }
+    }
+}
+
+impl Default for TerminalInfo {
+    fn default() -> Self {
+        Self::new(0, 0)
     }
 }
 
