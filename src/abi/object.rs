@@ -12,6 +12,7 @@ pub struct TerminalInfo {
     pub send_sig_on_special_chars: bool,
     pub echo_newline: bool,
     pub echo_delete: bool,
+    pub map_output_newline_to_crlf: bool,
 }
 
 impl TerminalInfo {
@@ -24,6 +25,7 @@ impl TerminalInfo {
             send_sig_on_special_chars: true,
             echo_newline: true,
             echo_delete: true,
+            map_output_newline_to_crlf: true,
         }
     }
 }
